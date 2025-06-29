@@ -1,0 +1,57 @@
+{
+  "name": "storytelling-app",
+  "version": "1.0.0",
+  "description": "AI-powered storytelling platform with Grok integration and voice commands",
+  "main": "backend/server.js",
+  "scripts": {
+    "dev": "concurrently \"npm run backend:dev\" \"npm run frontend:dev\"",
+    "start": "node backend/server.js",
+    "backend:dev": "cd backend && npm run dev",
+    "frontend:dev": "cd frontend && npm run dev",
+    "backend:install": "cd backend && npm install",
+    "frontend:install": "cd frontend && npm install",
+    "install:all": "npm install && npm run backend:install && npm run frontend:install",
+    "build": "cd frontend && npm run build",
+    "test": "npm run backend:test && npm run frontend:test",
+    "backend:test": "cd backend && npm test",
+    "frontend:test": "cd frontend && npm test",
+    "db:migrate": "cd backend && npm run db:migrate",
+    "db:seed": "cd backend && npm run db:seed",
+    "deploy": "npm run build && railway up",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "format": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/md20210/storytelling-app.git"
+  },
+  "keywords": [
+    "storytelling",
+    "ai",
+    "grok",
+    "voice-commands",
+    "text-to-speech",
+    "react",
+    "nodejs",
+    "postgresql"
+  ],
+  "author": "Michael Dabrock <michael.dabrock@gmx.es>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/md20210/storytelling-app/issues"
+  },
+  "homepage": "https://github.com/md20210/storytelling-app#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "workspaces": [
+    "frontend",
+    "backend"
+  ]
+}
