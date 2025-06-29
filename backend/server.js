@@ -1,4 +1,4 @@
-// backend/server.js - Vollständige Version mit API Routes
+// backend/server.js - Mit Frontend Serving
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -62,6 +62,12 @@ if (process.env.NODE_ENV !== 'production') {
     app.use(morgan('combined'));
 }
 
+// Serve static files from React build (in production)
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../frontend/dist')));
+    console.log('📂 Serving static files from:', path.join(__dirname, '../frontend/dist'));
+}
+
 // Health Check Route
 app.get('/health', (req, res) => {
     res.status(200).json({
@@ -73,7 +79,8 @@ app.get('/health', (req, res) => {
             books: true,
             chapters: true,
             grokAI: !!process.env.GROK_API_KEY,
-            database: 'PostgreSQL'
+            database: 'PostgreSQL',
+            frontend: process.env.NODE_ENV === 'production' ? 'Static Served' : 'Development'
         },
         environment: process.env.NODE_ENV || 'development',
         port: PORT
@@ -111,7 +118,7 @@ app.post('/api/auth/register', (req, res) => {
             lastName,
             createdAt: new Date().toISOString()
         },
-        token: 'mock_jwt_token'
+        token: 'mock_jwt_token_' + Date.now()
     });
 });
 
@@ -125,10 +132,10 @@ app.post('/api/auth/login', (req, res) => {
         user: {
             id: 1,
             email,
-            firstName: 'Test',
+            firstName: 'Demo',
             lastName: 'User'
         },
-        token: 'mock_jwt_token'
+        token: 'mock_jwt_token_' + Date.now()
     });
 });
 
@@ -357,15 +364,23 @@ app.use('/api/*', (req, res) => {
     });
 });
 
-// Root route
-app.get('/', (req, res) => {
-    res.json({
-        message: 'Storytelling API Server',
-        version: '1.0.0',
-        documentation: '/health',
-        endpoints: '/api/*'
+// Serve React App for all non-API routes (in production)
+if (process.env.NODE_ENV === 'production') {
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
     });
-});
+} else {
+    // Development fallback
+    app.get('/', (req, res) => {
+        res.json({
+            message: 'Storytelling API Server - Development Mode',
+            version: '1.0.0',
+            frontend: 'Run `npm run dev` to start React development server',
+            api_documentation: '/health',
+            api_endpoints: '/api/*'
+        });
+    });
+}
 
 // Global Error Handler
 app.use((error, req, res, next) => {
@@ -373,15 +388,6 @@ app.use((error, req, res, next) => {
     res.status(500).json({
         error: 'Internal Server Error',
         message: process.env.NODE_ENV === 'development' ? error.message : 'Something went wrong'
-    });
-});
-
-// 404 Handler
-app.use('*', (req, res) => {
-    res.status(404).json({
-        error: 'Route not found',
-        path: req.originalUrl,
-        suggestion: 'Try /health or /api/* endpoints'
     });
 });
 
@@ -395,4 +401,7 @@ app.listen(PORT, '0.0.0.0', () => {
     console.log(`   - GET  /api/stories`);
     console.log(`   - POST /api/auth/login`);
     console.log(`   - GET  /api/grok/status`);
+    if (process.env.NODE_ENV === 'production') {
+        console.log(`   - GET  /* (React App)`);
+    }
 });
