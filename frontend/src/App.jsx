@@ -1,4 +1,4 @@
-// frontend/src/App.jsx - Vollständige Version
+// frontend/src/App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useParams, Link } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -11,11 +11,11 @@ import { AuthProvider, useAuth } from './contexts/AuthContext.jsx';
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import Dashboard from './pages/Dashboard.jsx';
-import Books from './pages/Books';
+import Books from './pages/Books.jsx';
 import ChapterEditor from './pages/ChapterEditor.jsx';
 
 // Components
-import Layout from './components/Layout/Layout';
+import Layout from './components/Layout/Layout.jsx';
 import LoadingSpinner from './components/UI/LoadingSpinner.jsx';
 
 // Styles
@@ -67,6 +67,36 @@ const PublicRoute = ({ children }) => {
     }
 
     return children;
+};
+
+// BookDetail Component (simple version)
+const BookDetail = () => {
+    const { bookId } = useParams();
+    
+    return (
+        <div className="min-h-screen bg-gray-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    <h1 className="text-2xl font-bold text-gray-900 mb-4">Book Detail</h1>
+                    <p className="text-gray-600">Book ID: {bookId}</p>
+                    <div className="mt-6">
+                        <Link
+                            to="/books"
+                            className="btn btn-secondary"
+                        >
+                            ← Back to Books
+                        </Link>
+                        <Link
+                            to={`/books/${bookId}/chapters/1`}
+                            className="btn btn-primary ml-4"
+                        >
+                            Edit Chapter 1
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 };
 
 function App() {
@@ -180,35 +210,5 @@ function App() {
         </QueryClientProvider>
     );
 }
-
-// BookDetail Component (simple version)
-const BookDetail = () => {
-    const { bookId } = useParams();
-    
-    return (
-        <div className="min-h-screen bg-gray-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                    <h1 className="text-2xl font-bold text-gray-900 mb-4">Book Detail</h1>
-                    <p className="text-gray-600">Book ID: {bookId}</p>
-                    <div className="mt-6">
-                        <Link
-                            to="/books"
-                            className="btn btn-secondary"
-                        >
-                            ← Back to Books
-                        </Link>
-                        <Link
-                            to={`/books/${bookId}/chapters/1`}
-                            className="btn btn-primary ml-4"
-                        >
-                            Edit Chapter 1
-                        </Link>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-};
 
 export default App;

@@ -314,9 +314,9 @@ const Books = () => {
                                                 <Eye className="h-4 w-4" />
                                             </Link>
                                             <Link
-                                                to={`/books/${book.id}/edit`}
+                                                to={`/books/${book.id}/chapters/1`}
                                                 className="btn btn-ghost btn-sm"
-                                                title="Edit book"
+                                                title="Edit chapters"
                                             >
                                                 <Edit3 className="h-4 w-4" />
                                             </Link>

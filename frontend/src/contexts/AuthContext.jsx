@@ -1,6 +1,6 @@
 // frontend/src/contexts/AuthContext.jsx
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
-import authService from '../services/authService';
+import authService from '../services/authService.js';
 import toast from 'react-hot-toast';
 
 // Initial state
@@ -109,19 +109,10 @@ export const AuthProvider = ({ children }) => {
                     // Set token for API calls
                     authService.setAuthToken(token);
                     
-                    // Verify token is still valid
-                    try {
-                        const profile = await authService.getProfile();
-                        dispatch({
-                            type: AUTH_ACTIONS.LOGIN_SUCCESS,
-                            payload: { user: profile.data.user, token }
-                        });
-                    } catch (error) {
-                        // Token is invalid, clear storage
-                        localStorage.removeItem('storytelling_token');
-                        localStorage.removeItem('storytelling_user');
-                        dispatch({ type: AUTH_ACTIONS.SET_LOADING, payload: false });
-                    }
+                    dispatch({
+                        type: AUTH_ACTIONS.LOGIN_SUCCESS,
+                        payload: { user, token }
+                    });
                 } else {
                     dispatch({ type: AUTH_ACTIONS.SET_LOADING, payload: false });
                 }
@@ -204,63 +195,11 @@ export const AuthProvider = ({ children }) => {
 
     // Logout function
     const logout = () => {
-        // Clear localStorage
         localStorage.removeItem('storytelling_token');
         localStorage.removeItem('storytelling_user');
-
-        // Clear auth token from API calls
         authService.setAuthToken(null);
-
         dispatch({ type: AUTH_ACTIONS.LOGOUT });
         toast.success('Logged out successfully');
-    };
-
-    // Update profile function
-    const updateProfile = async (profileData) => {
-        try {
-            const response = await authService.updateProfile(profileData);
-            const updatedUser = response.data.user;
-
-            // Update localStorage
-            localStorage.setItem('storytelling_user', JSON.stringify(updatedUser));
-
-            dispatch({
-                type: AUTH_ACTIONS.UPDATE_PROFILE,
-                payload: updatedUser
-            });
-
-            toast.success('Profile updated successfully');
-            return { success: true, user: updatedUser };
-
-        } catch (error) {
-            const errorMessage = error.response?.data?.message || 'Profile update failed';
-            toast.error(errorMessage);
-            return { success: false, error: errorMessage };
-        }
-    };
-
-    // Change password function
-    const changePassword = async (currentPassword, newPassword) => {
-        try {
-            await authService.changePassword(currentPassword, newPassword);
-            toast.success('Password changed successfully');
-            return { success: true };
-
-        } catch (error) {
-            const errorMessage = error.response?.data?.message || 'Password change failed';
-            toast.error(errorMessage);
-            return { success: false, error: errorMessage };
-        }
-    };
-
-    // Clear error function
-    const clearError = () => {
-        dispatch({ type: AUTH_ACTIONS.CLEAR_ERROR });
-    };
-
-    // Check if user is authenticated
-    const isAuthenticated = () => {
-        return !!state.user && !!state.token;
     };
 
     // Get user display name
@@ -272,22 +211,13 @@ export const AuthProvider = ({ children }) => {
     };
 
     const value = {
-        // State
         user: state.user,
         token: state.token,
         loading: state.loading,
         error: state.error,
-        
-        // Actions
         login,
         register,
         logout,
-        updateProfile,
-        changePassword,
-        clearError,
-        
-        // Helpers
-        isAuthenticated,
         getUserDisplayName
     };
 
@@ -298,14 +228,11 @@ export const AuthProvider = ({ children }) => {
     );
 };
 
-// Custom hook to use auth context
 export const useAuth = () => {
     const context = useContext(AuthContext);
-    
     if (!context) {
         throw new Error('useAuth must be used within an AuthProvider');
     }
-    
     return context;
 };
 

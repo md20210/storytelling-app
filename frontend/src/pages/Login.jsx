@@ -177,17 +177,6 @@ const Login = () => {
                         </p>
                     </div>
                 </form>
-
-                {/* Demo Credentials */}
-                {process.env.NODE_ENV === 'development' && (
-                    <div className="bg-yellow-50 border border-yellow-200 rounded-md p-4">
-                        <h3 className="text-sm font-medium text-yellow-800 mb-2">Demo Credentials</h3>
-                        <p className="text-xs text-yellow-700">
-                            Email: demo@storytelling.app<br />
-                            Password: demo123456
-                        </p>
-                    </div>
-                )}
             </div>
         </div>
     );

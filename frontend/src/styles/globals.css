@@ -227,11 +227,6 @@
   }
 }
 
-/* Dark mode support (future enhancement) */
-@media (prefers-color-scheme: dark) {
-  /* Dark mode styles will be added in future versions */
-}
-
 /* Mobile optimizations */
 @media (max-width: 768px) {
   .card {

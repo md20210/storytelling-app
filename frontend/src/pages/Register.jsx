@@ -256,29 +256,6 @@ const Register = () => {
                             )}
                         </div>
 
-                        {/* Password Requirements */}
-                        <div className="bg-gray-50 p-3 rounded-md">
-                            <h4 className="text-sm font-medium text-gray-700 mb-2">Password Requirements:</h4>
-                            <ul className="text-xs text-gray-600 space-y-1">
-                                <li className={`flex items-center ${formData.password.length >= 8 ? 'text-green-600' : 'text-gray-600'}`}>
-                                    <span className="mr-2">{formData.password.length >= 8 ? '✓' : '○'}</span>
-                                    At least 8 characters
-                                </li>
-                                <li className={`flex items-center ${/(?=.*[a-z])/.test(formData.password) ? 'text-green-600' : 'text-gray-600'}`}>
-                                    <span className="mr-2">{/(?=.*[a-z])/.test(formData.password) ? '✓' : '○'}</span>
-                                    One lowercase letter
-                                </li>
-                                <li className={`flex items-center ${/(?=.*[A-Z])/.test(formData.password) ? 'text-green-600' : 'text-gray-600'}`}>
-                                    <span className="mr-2">{/(?=.*[A-Z])/.test(formData.password) ? '✓' : '○'}</span>
-                                    One uppercase letter
-                                </li>
-                                <li className={`flex items-center ${/(?=.*\d)/.test(formData.password) ? 'text-green-600' : 'text-gray-600'}`}>
-                                    <span className="mr-2">{/(?=.*\d)/.test(formData.password) ? '✓' : '○'}</span>
-                                    One number
-                                </li>
-                            </ul>
-                        </div>
-
                         {/* Submit Button */}
                         <div>
                             <button

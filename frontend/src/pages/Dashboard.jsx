@@ -208,8 +208,8 @@ const Dashboard = () => {
                     </div>
                 </div>
 
+                {/* Recent Books */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Recent Books */}
                     <div className="lg:col-span-2">
                         <div className="card">
                             <div className="card-header">
@@ -257,7 +257,7 @@ const Dashboard = () => {
                                                         <Eye className="h-4 w-4" />
                                                     </Link>
                                                     <Link
-                                                        to={`/books/${book.id}/edit`}
+                                                        to={`/books/${book.id}/chapters/1`}
                                                         className="btn btn-ghost btn-sm"
                                                     >
                                                         <Edit3 className="h-4 w-4" />
@@ -322,35 +322,6 @@ const Dashboard = () => {
                                             </div>
                                         </div>
                                     ))}
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Writing Goals */}
-                        <div className="card">
-                            <div className="card-header">
-                                <h3 className="text-lg font-medium text-gray-900">Today's Goals</h3>
-                            </div>
-                            <div className="card-body">
-                                <div className="space-y-4">
-                                    <div>
-                                        <div className="flex items-center justify-between text-sm">
-                                            <span className="text-gray-600">Daily Words</span>
-                                            <span className="font-medium">750 / 1000</span>
-                                        </div>
-                                        <div className="mt-2 bg-gray-200 rounded-full h-2">
-                                            <div className="bg-blue-600 h-2 rounded-full" style={{ width: '75%' }}></div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div className="flex items-center justify-between text-sm">
-                                            <span className="text-gray-600">Chapters</span>
-                                            <span className="font-medium">2 / 3</span>
-                                        </div>
-                                        <div className="mt-2 bg-gray-200 rounded-full h-2">
-                                            <div className="bg-green-600 h-2 rounded-full" style={{ width: '67%' }}></div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
