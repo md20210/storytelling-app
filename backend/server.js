@@ -4,7 +4,9 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const path = require('path');
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 // Nach require('dotenv').config();
 console.log('🔍 ALL ENV VARS:', Object.keys(process.env).filter(key => key.includes('GROK')));
 console.log('🔍 Raw GROK_API_KEY:', JSON.stringify(process.env.GROK_API_KEY));
@@ -108,6 +110,35 @@ app.use((err, req, res, next) => {
         success: false,
         message: 'Internal server error',
         error: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
+});
+
+// Am Ende von server.js, VOR app.listen()
+// Serve static files from frontend build
+const frontendPath = path.join(__dirname, '../frontend/dist');
+app.use(express.static(frontendPath));
+
+// Catch-all handler for React Router (SPA)
+app.get('*', (req, res) => {
+    if (req.url.startsWith('/api/') || req.url.startsWith('/health')) {
+        return res.status(404).json({
+            success: false,
+            message: 'API endpoint not found',
+            endpoint: req.url
+        });
+    }
+    
+    // Serve React app for all other routes
+    res.sendFile(path.join(frontendPath, 'index.html'), (err) => {
+        if (err) {
+            res.send(`
+                <h1>🚀 Storytelling App</h1>
+                <p>✅ Backend is running!</p>
+                <p>✅ Grok AI integrated</p>
+                <p><a href="/health">Health Check</a></p>
+                <p><a href="/api/test">API Test</a></p>
+            `);
+        }
     });
 });
 
