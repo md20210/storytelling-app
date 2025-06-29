@@ -8,11 +8,11 @@ import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './contexts/AuthContext.jsx';
 
 // Pages
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
+import Login from './pages/Login.jsx';
+import Register from './pages/Register.jsx';
+import Dashboard from './pages/Dashboard.jsx';
 import Books from './pages/Books';
-import ChapterEditor from './pages/ChapterEditor';
+import ChapterEditor from './pages/ChapterEditor.jsx';
 
 // Components
 import Layout from './components/Layout/Layout';
