@@ -1,9 +1,9 @@
 // frontend/src/pages/Login.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext.jsx';
 import { Eye, EyeOff, Mail, Lock, BookOpen } from 'lucide-react';
-import LoadingSpinner from '../components/UI/LoadingSpinner';
+import LoadingSpinner from '../components/UI/LoadingSpinner.jsx';
 
 const Login = () => {
     const navigate = useNavigate();

@@ -1,7 +1,7 @@
 // frontend/src/pages/Dashboard.jsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext.jsx';
 import { 
     BookOpen, 
     Plus, 
@@ -14,7 +14,7 @@ import {
     Calendar,
     Target
 } from 'lucide-react';
-import LoadingSpinner from '../components/UI/LoadingSpinner';
+import LoadingSpinner from '../components/UI/LoadingSpinner.jsx';
 
 const Dashboard = () => {
     const { user, getUserDisplayName } = useAuth();

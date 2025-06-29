@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { Toaster } from 'react-hot-toast';
 
 // Context
-import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { AuthProvider, useAuth } from './contexts/AuthContext.jsx';
 
 // Pages
 import Login from './pages/Login';
@@ -16,7 +16,7 @@ import ChapterEditor from './pages/ChapterEditor';
 
 // Components
 import Layout from './components/Layout/Layout';
-import LoadingSpinner from './components/UI/LoadingSpinner';
+import LoadingSpinner from './components/UI/LoadingSpinner.jsx';
 
 // Styles
 import './styles/globals.css';

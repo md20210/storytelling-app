@@ -14,7 +14,7 @@ import {
     FileText,
     BarChart3
 } from 'lucide-react';
-import LoadingSpinner from '../components/UI/LoadingSpinner';
+import LoadingSpinner from '../components/UI/LoadingSpinner.jsx';
 
 const Books = () => {
     const [books, setBooks] = useState([]);

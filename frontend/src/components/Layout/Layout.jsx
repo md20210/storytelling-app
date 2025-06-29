@@ -1,7 +1,7 @@
 // frontend/src/components/Layout/Layout.jsx
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext.jsx';
 import { 
     BookOpen, 
     Home, 

@@ -19,7 +19,7 @@ import {
     Mic,
     Square
 } from 'lucide-react';
-import LoadingSpinner from '../components/UI/LoadingSpinner';
+import LoadingSpinner from '../components/UI/LoadingSpinner.jsx';
 import toast from 'react-hot-toast';
 
 const ChapterEditor = () => {
